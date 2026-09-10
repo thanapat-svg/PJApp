@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="Thermal Labeler" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="แอปนี้พิมพ์ผ่าน Bluetooth ล้วน ๆ ไม่ต้องตั้งค่า IP/พอร์ตใด ๆ เว็บสามารถสั่งพิมพ์เข้ามาได้โดยตรงผ่านลิงก์ (ดูตัวอย่างในโฟลเดอร์ web-example)" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="เลือกเครื่องพิมพ์ (ต้องจับคู่ Bluetooth ไว้ก่อนในหน้า Settings ของเครื่อง):" />
+
+        <Spinner
+            android:id="@+id/spinnerDevices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnRefreshDevices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="รีเฟรชรายการเครื่องพิมพ์" />
+
+        <Button
+            android:id="@+id/btnConnect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="เชื่อมต่อเครื่องพิมพ์" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textStyle="bold"
+            android:text="ตั้งค่าเครื่องพิมพ์" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="ภาษาคำสั่งเครื่องพิมพ์ (ดูจากคู่มือ/ยี่ห้อเครื่องพิมพ์):" />
+
+        <Spinner
+            android:id="@+id/spinnerLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/layoutPaperSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ความกว้างกระดาษ/ป้าย (mm)" />
+
+            <EditText
+                android:id="@+id/etWidthMm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="58" />
+
+            <TextView
+                android:id="@+id/tvHeightLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ความสูงป้าย (mm) — ใช้กับ TSPL เท่านั้น" />
+
+            <EditText
+                android:id="@+id/etHeightMm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="40" />
+
+            <TextView
+                android:id="@+id/tvGapLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ระยะห่างระหว่างป้าย / Gap (mm) — ใช้กับ TSPL เท่านั้น" />
+
+            <EditText
+                android:id="@+id/etGapMm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="2" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSaveSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="บันทึกการตั้งค่ากระดาษ" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="สถานะ: ยังไม่ได้เชื่อมต่อ" />
+
+        <Button
+            android:id="@+id/btnTestPrint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="ทดสอบพิมพ์" />
+
+    </LinearLayout>
+</ScrollView>

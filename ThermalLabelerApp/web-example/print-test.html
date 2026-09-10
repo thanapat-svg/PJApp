@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ทดสอบสั่งพิมพ์ Label</title>
+<style>
+  body { font-family: sans-serif; max-width: 480px; margin: 30px auto; padding: 0 16px; }
+  input, textarea { width: 100%; box-sizing: border-box; padding: 6px; margin-bottom: 12px; }
+  button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+  #result { margin-top: 12px; font-weight: bold; }
+  .note { color: #555; font-size: 14px; }
+</style>
+</head>
+<body>
+  <h2>ทดสอบสั่งพิมพ์ผ่านแอป Thermal Labeler</h2>
+  <p class="note">
+    หน้านี้ไม่ได้เชื่อมต่ออะไรกับแอปทางเน็ตเวิร์กเลย — แค่กดปุ่มแล้วเบราว์เซอร์จะเปิดแอป
+    Thermal Labeler ขึ้นมาโดยตรง (ต้องติดตั้งแอปไว้ในเครื่องก่อน และเปิดหน้านี้จากเบราว์เซอร์
+    บนมือถือเครื่องเดียวกับที่ลงแอปไว้)
+  </p>
+
+  <label>ข้อความบนป้าย</label>
+  <textarea id="labelText" rows="4">Cesar Simply Crafted
+LOT: 240915
+Best Before: 2025-09-15</textarea>
+
+  <label>ข้อมูลสำหรับ QR code (เว้นว่างได้ถ้าไม่ต้องการ)</label>
+  <input type="text" id="qrData" value="https://example.com/lot/240915">
+
+  <label>ภาษาคำสั่งเครื่องพิมพ์ (เว้นว่าง = ใช้ค่าที่ตั้งไว้ในแอป)</label>
+  <select id="lang">
+    <option value="">(ใช้ค่าที่ตั้งไว้ในแอป)</option>
+    <option value="escpos">ESC/POS (เครื่องพิมพ์ใบเสร็จ)</option>
+    <option value="tspl">TSPL (เครื่องพิมพ์ป้าย/สติกเกอร์)</option>
+  </select>
+
+  <label>ขนาดกระดาษ/ป้าย mm (เว้นว่าง = ใช้ค่าที่ตั้งไว้ในแอป) — กว้าง / สูง / gap</label>
+  <div style="display:flex; gap:8px;">
+    <input type="number" id="widthMm" placeholder="กว้าง">
+    <input type="number" id="heightMm" placeholder="สูง (TSPL)">
+    <input type="number" id="gapMm" placeholder="gap (TSPL)">
+  </div>
+
+  <button onclick="printLabel()">พิมพ์ป้าย</button>
+  <p id="result"></p>
+
+<script>
+// แพ็กเกจของแอป (ต้องตรงกับ applicationId ใน app/build.gradle)
+const APP_PACKAGE = "com.example.thermallabeler";
+
+function printLabel() {
+  const text = document.getElementById('labelText').value;
+  const qr = document.getElementById('qrData').value;
+  const lang = document.getElementById('lang').value;
+  const width = document.getElementById('widthMm').value;
+  const height = document.getElementById('heightMm').value;
+  const gap = document.getElementById('gapMm').value;
+
+  const params = new URLSearchParams();
+  if (text) params.set('text', text);
+  if (qr) params.set('qr', qr);
+  if (lang) params.set('lang', lang);
+  if (width) params.set('width', width);
+  if (height) params.set('height', height);
+  if (gap) params.set('gap', gap);
+
+  const resultEl = document.getElementById('result');
+
+  // ใช้รูปแบบ intent:// ของ Chrome บน Android เพราะเสถียรกว่าการเปิด custom scheme ตรง ๆ
+  // ถ้าไม่ได้ลงแอปไว้ Chrome จะแจ้งเตือนเองว่าเปิดแอปไม่ได้
+  const intentUrl =
+    "intent://print?" + params.toString() +
+    "#Intent;scheme=thermalprint;package=" + APP_PACKAGE + ";end";
+
+  resultEl.innerText = "กำลังเปิดแอป Thermal Labeler...";
+  window.location.href = intentUrl;
+}
+</script>
+</body>
+</html>
